@@ -6,7 +6,7 @@ public class Variable {
     double instanceVar1;
     
     // static variable
-    static int staticVar = 50; // AKS static variable
+    static int staticVar = 50; // AKS class variable
 
     // local variable
     public void func(){ // method
