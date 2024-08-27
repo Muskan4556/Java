@@ -6,6 +6,7 @@ public class Student1 {
     private double marks1;
     private double marks2;
     private double marks3;
+     double total; 
 
     Student1(){
         this.id = 0;
@@ -13,6 +14,7 @@ public class Student1 {
         this.marks1 = 0.0;
         this.marks2 = 0.0;
         this.marks3 = 0.0;
+        this.total = 0.0;
     }
 
     Student1(long id, String name, double m1,double m2, double m3){
@@ -21,11 +23,13 @@ public class Student1 {
         this.marks1 = m1;
         this.marks2 = m2;
         this.marks3 = m3;
+        this.total = totalMarks();
     }
 
     public double totalMarks(){
         return this.marks1 + this.marks2 + this.marks3;
     }
+
 
     public void setId(long id){
         this.id = id;
@@ -55,19 +59,22 @@ public class Student1 {
     public double getMarks2(){return this.marks2;}
     public double getMarks3(){return this.marks3;}
 
+    
+
     public String toString(){
         return (
             "ID: " + this.id + "\n" +
             "Name: " + this.name + "\n" +
             "Marks1: " + this.marks1 + "\n" +
             "Marks2: " + this.marks2 + "\n" +
-            "Marks3: " + this.marks3 + "\n"
+            "Marks3: " + this.marks3 + "\n" +
+            "Total:" + this.total + "\n"
         );
     }
 
     public static void main(String[] args) {
         // Student1 s1 = new Student1();
-        Student1 s1 = new Student1(1234567890,"abc",77.57,45.25,98.48);
+        Student1 s1 = new Student1(1234567890,"abc",77.57,90.25,98.48);
         System.out.println(s1.toString());
         System.out.println(s1.totalMarks());
 

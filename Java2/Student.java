@@ -8,65 +8,128 @@ public class Student {
     private String name;
     private char gender;
     private String branch;
-    private String[] validBranches  = {"ESE", "CSE", "ME","ECSE","CE","BT","EEE"};
+    private static final String[] validBranches = {"ESE", "CSE", "ME", "ECSE", "CE", "BT", "EEE"};
 
-    public Student(){
+    // Default constructor
+    public Student() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Student ID:");
-        this.id = sc.nextInt();
+        long inputId = sc.nextLong();
+        sc.nextLine(); // Consume the newline character
+        if (isValidId(inputId)) {
+            this.id = inputId;
+        } else {
+            System.out.println("ID should be a 9-digit number.");
+            this.id = -1; // Set an invalid ID value
+        }
+
         System.out.println("Enter Student Name:");
-        this.name = sc.next();
+        String name = sc.nextLine();
+        if (isValidName(name)) {
+            this.name = name;
+        } else {
+            System.out.println("Name should not contain special characters or digits.");
+            this.name = "Invalid";
+        }
+
         System.out.println("Enter Student Gender:");
         char gender = sc.next().charAt(0);
-        if(gender == 'M' ||gender == 'm' || gender == 'F' || gender == 'f' ){
-            this.gender = gender;
-        }
-        else{
-            System.out.println("Gender should be M/m or F/f");
-        }
-        System.out.println("Enter Student Branch:");
-         String branch = sc.next();
-         if (Arrays.asList(validBranches).contains(branch)) {
-            this.branch = branch;
+        if (isValidGender(gender)) {
+            this.gender = Character.toUpperCase(gender);
         } else {
-            System.out.println("Invalid Branch");
+            System.out.println("Gender must be either M or F.");
+            this.gender = 'I'; // Invalid gender
+        }
+
+        System.out.println("Enter Student Branch:");
+        String branch = sc.next();
+        if (isValidBranch(branch)) {
+            this.branch = branch.toUpperCase();
+        } else {
             this.branch = "Invalid";
         }
     }
 
-
+    // Parameterized constructor
     public Student(long id, String name, char gender, String branch) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        if(branch == "ESE" || branch == "CSE" ||branch == "ME"||branch == "ECSE" || branch == "CE"||branch == "BT"||branch == "EEE") {
-            this.branch = branch;
-        }else{
-            this.branch = "invalid";
+        if (isValidId(id)) {
+            this.id = id;
+        } else {
+            this.id = -1; // Set an invalid ID value
         }
-        
+
+        if (isValidName(name)) {
+            this.name = name;
+        } else {
+            this.name = "Invalid";
+        }
+
+        if (isValidGender(gender)) {
+            this.gender = Character.toUpperCase(gender);
+        } else {
+            System.out.println("Gender must be either M or F.");
+            this.gender = 'I'; // Invalid gender
+        }
+
+        if (isValidBranch(branch)) {
+            this.branch = branch.toUpperCase();
+        } else {
+            this.branch = "Invalid";
+        }
+    }
+
+    // Method to check if the ID is a 9-digit number
+    private boolean isValidId(long id) {
+        return String.valueOf(id).length() == 9;
+    }
+
+    // Method to check if the name is valid
+    private boolean isValidName(String name) {
+        return name.matches("[a-zA-Z ]+");
+    }
+
+    // Method to check if the gender is valid
+    private boolean isValidGender(char gender) {
+        char upperCaseGender = Character.toUpperCase(gender);
+        return upperCaseGender == 'M' || upperCaseGender == 'F';
+    }
+
+     // Method to check if the branch is valid
+     private boolean isValidBranch(String branch) {
+        String normalizedBranch = branch.toUpperCase();
+        return Arrays.asList(validBranches).contains(normalizedBranch);
     }
 
     public void setId(long id) {
-        this.id = id;	    }
+        if (isValidId(id)) {
+            this.id = id;
+        } else {
+            System.out.println("ID should be a 9-digit number.");
+        }
+    }
 
     public long getId() {
         return id;
     }
 
     public void setName(String name) {
+        if (isValidName(name)) {
             this.name = name;
+        } else {
+            System.out.println("Name should not contain special characters or digits.");
+        }
     }
 
     public String getName() {
         return name;
     }
-   
+
     public void setGender(char gender) {
-        if (gender == 'M' || gender == 'F') {
-            this.gender = gender;
+        if (isValidGender(gender)) {
+            this.gender = Character.toUpperCase(gender);
         } else {
             System.out.println("Gender must be either M or F.");
+            this.gender = 'I'; // Invalid gender
         }
     }
 
@@ -75,11 +138,10 @@ public class Student {
     }
 
     public void setBranch(String branch) {
-        
-        if(branch == "ESE" || branch == "CSE" ||branch == "ME"||branch == "ECSE" || branch == "CE"||branch == "BT"||branch == "EEE") {
-            this.branch = branch;
-        }else {
-            System.out.println("Branch Invalid");
+        if (isValidBranch(branch)) {
+            this.branch = branch.toUpperCase();
+        } else {
+            this.branch = "Invalid";
         }
     }
 
@@ -87,7 +149,7 @@ public class Student {
         return branch;
     }
 
- 
+    @Override
     public String toString() {
         return "Student ID: " + id + "\n" +
                "Name: " + name + "\n" +
@@ -95,12 +157,52 @@ public class Student {
                "Branch: " + branch;
     }
 
-public static void main(String[] args) {
-    // TODO Auto-generated method stub
-         Student student1 = new Student();
-        Student student2 = new Student(987654321, "abc", 'M', "CSE");
-        System.out.println(student1.toString());
-        System.out.println(student2.toString());
-}
+    // Method to create a Student object from user input
+    public static Student createFromInput() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Student ID: ");
+        long id = sc.nextLong();
+        sc.nextLine(); // Consume the newline character
 
+        System.out.print("Enter Student Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Student Gender (M/F): ");
+        char gender = sc.next().charAt(0);
+
+        System.out.print("Enter Student Branch: ");
+        String branch = sc.next();
+
+        return new Student(id, name, gender, branch); // Constructor call, so it will be validated
+    }
+
+    public static void main(String[] args) {
+        // Student student1 = new Student();
+        // Student student2 = new Student(987654321, "Alice Johnson", 'M', "CSE");
+        // System.out.println(student1.toString());
+        // System.out.println();
+        // System.out.println(student2.toString());
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the number of students: ");
+        int n = sc.nextInt();
+        sc.nextLine(); // Consume the newline character
+
+        // Create an array to hold Student objects
+        Student[] students = new Student[n];
+
+        // Read student details from console
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter details for Student " + (i + 1) + ":");
+            students[i] = Student.createFromInput();
+        }
+
+        // Print details of all Student objects
+        System.out.println("\nStudent Details:");
+        for (int i = 0; i < students.length; i++) {
+            System.out.println("Student " + (i + 1) + ":");
+            System.out.println(students[i]);
+            System.out.println();
+        }
+    }
 }
