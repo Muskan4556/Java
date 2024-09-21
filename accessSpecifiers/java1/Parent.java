@@ -20,4 +20,6 @@ public class Parent {
     static void print(){
         System.out.println("I am in Parent class");
     }
+
+    public void sum(){System.out.println(5+12);}
 }

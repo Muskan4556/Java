@@ -10,4 +10,5 @@ public class Child extends Parent {
     static void print(){
         System.out.println("I am in Child class");
     }
+    public void sum(){System.out.println(15+12);}
 }

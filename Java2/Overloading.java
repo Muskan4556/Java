@@ -27,12 +27,12 @@ public class Overloading {
     } 
 
     // Variable number of args method
-    public double sum (double ...a){
+    public double sum (double x, double ...a){
         double sum = 0.0;
         for(int i=0; i<a.length;i++){
             sum += a[i];
         }
-        return sum;
+        return sum + x;
     }
 
     public static void main(String[] args) {
