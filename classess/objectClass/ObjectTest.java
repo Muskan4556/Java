@@ -17,5 +17,6 @@ public class ObjectTest {
         System.out.println(obj2.getClass()); // class classess.abstractClass.Audi
 
         System.out.println(obj1.toString()); // classess.objectClass.Person@1f32e575
+        System.out.println(obj2.toString()); // Audi
     }
 }

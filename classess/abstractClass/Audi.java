@@ -6,6 +6,8 @@ public class Audi extends LuxuryCar {
         super(mileaga);
     }
 
+    public int getMileaga() {return mileaga;}
+
     @Override
     public void pressCluch(){
         // its implementation
@@ -15,6 +17,11 @@ public class Audi extends LuxuryCar {
     public void pressDualBreak(){
         // its implementation
         System.out.println("press break");
+    }
+
+    @Override
+    public String toString(){
+        return "Audi";
     }
 }
 

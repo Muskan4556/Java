@@ -11,44 +11,7 @@ public class Student {
     private static final String[] validBranches = {"ESE", "CSE", "ME", "ECSE", "CE", "BT", "EEE"};
 
     // Default constructor
-    public Student() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Student ID:");
-        long inputId = sc.nextLong();
-        sc.nextLine(); // Consume the newline character
-        if (isValidId(inputId)) {
-            this.id = inputId;
-        } else {
-            System.out.println("ID should be a 9-digit number.");
-            this.id = -1; // Set an invalid ID value
-        }
-
-        System.out.println("Enter Student Name:");
-        String name = sc.nextLine();
-        if (isValidName(name)) {
-            this.name = name;
-        } else {
-            System.out.println("Name should not contain special characters or digits.");
-            this.name = "Invalid";
-        }
-
-        System.out.println("Enter Student Gender:");
-        char gender = sc.next().charAt(0);
-        if (isValidGender(gender)) {
-            this.gender = Character.toUpperCase(gender);
-        } else {
-            System.out.println("Gender must be either M or F.");
-            this.gender = 'I'; // Invalid gender
-        }
-
-        System.out.println("Enter Student Branch:");
-        String branch = sc.next();
-        if (isValidBranch(branch)) {
-            this.branch = branch.toUpperCase();
-        } else {
-            this.branch = "Invalid";
-        }
-    }
+    public Student() {}
 
     // Parameterized constructor
     public Student(long id, String name, char gender, String branch) {
@@ -79,8 +42,9 @@ public class Student {
     }
 
     // Method to check if the ID is a 9-digit number
+    // String.valueOf() is specifically used to convert any data type (including primitive types and objects) into a String. It is part of the String class and is primarily meant for converting values to their string representation.
     private boolean isValidId(long id) {
-        return String.valueOf(id).length() == 9;
+        return id > 0 && String.valueOf(id).length() == 9;
     }
 
     // Method to check if the name is valid
@@ -189,7 +153,8 @@ public class Student {
         sc.nextLine(); // Consume the newline character
 
         // Create an array to hold Student objects
-        Student[] students = new Student[n];
+        // int arr [] = new int[5];
+        Student students []  = new Student[n];
 
         // Read student details from console
         for (int i = 0; i < n; i++) {
