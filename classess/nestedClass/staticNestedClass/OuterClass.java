@@ -3,6 +3,8 @@ package classess.nestedClass.staticNestedClass;
 class OuterClass {
     int instanceVar = 10;
     static int classVar = 200;
+    private static final int YEAR = 2000;
+
 
     static class NestedClass{
         public void print(){
